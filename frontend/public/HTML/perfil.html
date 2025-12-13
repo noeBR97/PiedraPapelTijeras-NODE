@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Bienvenido a Piedra Papel Tijera</h1>
+        </header>
+        <main>
+            <div class="container-perfil">
+                <h2>Perfil de Usuario</h2>
+                <p>Nombre de usuario: <span id="username-display"></span></p>
+                <button id="btn-logout">Cerrar Sesión</button>
+            </div>
+            <div class="container-partidas">
+                <button id="btn-crear-partida">Crear Partida</button>
+                <div id="lista-partidas">
+                    <h3>Partidas Disponibles</h3>
+                    <ul id="partidas-ul"> </ul>
+                </div>
+            </div>
+            <div class="modal" id="modal-crear-partida">
+                <div id="modal-body">
+                    <span class="boton-cerrar" id="cerrar-modal-crear-partida">&times;</span>
+                    <div id="container-formulario">
+                        <h2>Crear Nueva Partida</h2>
+                        <form id="crear-partida-form">
+                            <input type="text" id="nombre-partida" name="nombrePartida" placeholder="Nombre de la partida" required />
+                            <button type="submit" id="submit-crear-partida">Crear</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="../../src/perfil.js"></script>
+</body>
+</html>
