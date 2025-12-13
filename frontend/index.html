@@ -4,10 +4,54 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <title>Principal</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <header>
+        <h1>Bienvenido a Piedra Papel Tijera</h1>
+      </header>
+      <main>
+        <div id="container-login-registro">
+          <div id="container-login">
+            <button id="btn-login">Iniciar Sesión</button>
+          </div>
+          <div id="container-registro">
+            <button id="btn-registro">Registrarse</button>
+          </div>
+        </div>
+        <div class="modal">
+          <div id="modal-body">
+            <span class="boton-cerrar" id="cerrar-modal">&times;</span>
+            <div id="container-formulario">
+              <h2>Iniciar Sesión</h2>
+              <form id="login-form">
+                <input type="text" id="login-username" name="username" placeholder="Nombre de usuario" required />
+                <input type="password" id="login-password" name="password" placeholder="Contraseña" required />
+                <button type="submit">Iniciar Sesión</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal">
+          <div id="modal-body">
+            <span class="boton-cerrar" id="cerrar-modal">&times;</span>
+            <div id="container-formulario">
+              <h2>Registro</h2>
+              <form id="registro-form">
+                <input type="text" id="registro-nombre" name="nombre" placeholder="Nombre" required />
+                <input type="text" id="registro-apellido1" name="apellido1" placeholder="Primer apellido" required />
+                <input type="text" id="registro-apellido2" name="apellido2" placeholder="Segundo apellido" required />
+                <input type="email" id="registro-email" name="email" placeholder="Correo electrónico" required />
+                <input type="text" id="registro-username" name="username" placeholder="Nombre de usuario" required />
+                <input type="password" id="registro-password" name="password" placeholder="Contraseña" required />
+                <button type="submit">Registrarse</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
