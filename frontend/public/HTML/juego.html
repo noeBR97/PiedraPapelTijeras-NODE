@@ -11,8 +11,27 @@
             <h1>Bienvenido a Piedra Papel Tijera</h1>
         </header>
         <main>
-            <div class="layout-principal">
+            <div class="container-juego">
                 <button id="btn-abandonar-juego">Abandonar Juego</button>
+                <section class="jugadores">
+                    <div class="jugador" id="jugador">
+                        <h2>Tú</h2>
+                        <p id="username-display"></p>
+                        <div class="elecciones">
+                            <button class="eleccion-btn" data-choice="piedra" title="Piedra">✊</button>
+                            <button class="eleccion-btn" data-choice="papel" title="Papel">✋</button>
+                            <button class="eleccion-btn" data-choice="tijeras" title="Tijeras">✌️</button>
+                        </div>
+                        <p>Elección: <span id="eleccion-jugador">-</span></p>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="jugador" id="oponente">
+                        <h2>Oponente</h2>
+                        <p id="username-display"></p>
+                        <div class="elecciones">
+                            <span class="eleccion-oponente">❓</span>
+                        </div>
+                </section>
             </div>
         </main>
     </div>
