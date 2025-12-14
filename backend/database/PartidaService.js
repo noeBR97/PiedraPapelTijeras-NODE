@@ -56,6 +56,24 @@ class PartidaService {
         await partida.save();
         return partida;
     }
+
+    async cancelarPartida(idPartida, idUsuario) {
+        const partida = await Partida.findByPk(idPartida);
+        if (!partida) {
+            throw new Error('Partida no encontrada');
+        }
+
+        if (partida.idCreador !== idUsuario) {
+            throw new Error('No tienes permiso para cancelar esta partida');
+        }
+        
+        if (partida.estado !== 'espera') {
+            throw new Error('Solo se pueden cancelar partidas en espera');
+        }
+        partida.estado = 'finalizada';
+        await partida.save();
+        return partida;
+    }
 }
 
 export default new PartidaService();

@@ -54,3 +54,18 @@ export const unirseAPartida = async (req=request, res=response) => {
         res.status(500).json({msg: 'Error al unirse a la partida', error: error.message});
     }
 }
+
+export const cancelarPartida = async (req=request, res=response) => {
+    try {
+        const {idPartida} = req.params;
+        const idUsuario = req.user.id;
+        const partida = await PartidaService.cancelarPartida(idPartida, idUsuario);
+
+        res.status(200).json({
+            msg: 'Partida cancelada exitosamente',
+            partida
+        });
+    } catch (error) {
+        res.status(400).json({msg: 'Error al cancelar la partida', error: error.message});
+    }
+}
