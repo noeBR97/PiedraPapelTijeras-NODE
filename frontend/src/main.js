@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       sessionStorage.setItem('user', JSON.stringify(res.usuario));
 
-      window.location.href = '/perfil.html';
+      window.location.href = '/public/HTML/perfil.html';
     } catch (err) {
       alert(err.message);
     }
@@ -68,6 +68,20 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         body: JSON.stringify(data)
       });
+
+      //logueo utomatico tras registro
+      const loginRes = await apiRequest('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: data.email,
+          pass: data.pass
+        })
+      });
+
+      sessionStorage.setItem('token', loginRes.token);
+      sessionStorage.setItem('user', JSON.stringify(loginRes.usuario));
+
+      window.location.href = '/public/HTML/perfil.html';
 
       alert(res.msg);
     } catch (err) {
