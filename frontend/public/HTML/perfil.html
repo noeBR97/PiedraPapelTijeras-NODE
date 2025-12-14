@@ -30,6 +30,11 @@
                         <h2>Crear Nueva Partida</h2>
                         <form id="crear-partida-form">
                             <input type="text" id="nombre-partida" name="nombrePartida" placeholder="Nombre de la partida" required />
+                            <select id="tipo-partida" name="tipoPartida" required>
+                                <option value="" disabled selected>Selecciona el tipo de partida: </option>
+                                <option value="humano">Contra humano</option>
+                                <option value="maquina">Contra máquina</option>
+                            </select>
                             <button type="submit" id="submit-crear-partida">Crear</button>
                         </form>
                     </div>
