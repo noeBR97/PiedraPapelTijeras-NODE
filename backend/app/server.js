@@ -8,7 +8,7 @@ class Server {
 
     constructor() {
         this.app = express();
-        this.usuariosPath = '/api';
+        this.authPath = '/api/auth';
 
         //Middlewares
         this.middlewares();
@@ -27,7 +27,7 @@ class Server {
     }
 
     routes(){
-        this.app.use(this.usuariosPath, userRoutes);
+        this.app.use(this.authPath, userRoutes);
     }
 
     listen() {

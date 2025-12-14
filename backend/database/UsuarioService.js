@@ -1,4 +1,4 @@
-import Usuario from "../models/Usuario";
+import Usuario from "../models/Usuario.js";
 
 class UsuarioService {
     async crearUsuario(data) {
