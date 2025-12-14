@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import userRoutes from '../routes/auth.routes.js';
+import partidaRoutes from '../routes/partida.routes.js';
 import kleur from 'kleur';
 
 
@@ -9,6 +10,7 @@ class Server {
     constructor() {
         this.app = express();
         this.authPath = '/api/auth';
+        this.partidasPath = '/api/partidas';
 
         //Middlewares
         this.middlewares();
@@ -28,6 +30,7 @@ class Server {
 
     routes(){
         this.app.use(this.authPath, userRoutes);
+        this.app.use(this.partidasPath, partidaRoutes);
     }
 
     listen() {
