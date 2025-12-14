@@ -78,3 +78,24 @@ export const obtenerPartida = async (req=request, res=response) => {
         res.status(500).json({ msg: 'Error al obtener la partida', error: error.message });
     }
 }
+
+export const jugarRonda = async (req=request, res=response) => {
+    try {
+        const { idPartida } = req.params;
+        const { eleccion } = req.body;
+        const idUsuario = req.user.id;
+
+        if (!['piedra', 'papel', 'tijeras'].includes(eleccion)) {
+            return res.status(400).json({ msg: 'Elección inválida' });
+        }
+
+        const partidaActualizada = await PartidaService.jugarRonda(idPartida, idUsuario, eleccion);
+        
+        res.status(200).json({
+            msg: 'Ronda jugada exitosamente',
+            partida: partidaActualizada
+        });
+    } catch (error) {
+        res.status(400).json({ msg: 'Error al jugar la ronda', error: error.message });
+    }
+}

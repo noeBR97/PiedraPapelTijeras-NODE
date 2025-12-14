@@ -78,6 +78,68 @@ class PartidaService {
     async obtenerPartida(idPartida) {
         return await Partida.findByPk(idPartida);
     }
+
+    async jugarRonda(idPartida, idUsuario, eleccion) {
+        const partida = await Partida.findByPk(idPartida);
+        if (!partida) {
+            throw new Error('Partida no encontrada');
+        }
+
+        if (partida.estado !== 'en_progreso') {
+            throw new Error('La partida no está en progreso');
+        }
+
+        const esCreador = partida.idCreador === idUsuario;
+        const esRival = partida.idRival === idUsuario;
+
+        if (!esCreador && !esRival) {
+            throw new Error('No estás participando en esta partida');
+        }
+
+        if (esCreador) {
+            partida.eleccionCreador = eleccion;
+        } 
+
+        if (esRival) {
+            partida.eleccionRival = eleccion;
+        }
+
+        if (partida.eleccionCreador && partida.eleccionRival) {
+            const ganador = resolverRonda(partida.eleccionCreador, partida.eleccionRival);
+
+            if (ganador === 'creador') {
+                partida.victoriasCreador += 1;
+            } 
+
+            if (ganador === 'rival') {
+                partida.victoriasRival += 1;
+            }
+
+            partida.eleccionCreador = null;
+            partida.eleccionRival = null;
+
+            if (partida.victoriasCreador === 3) {
+                partida.estado = 'finalizada';
+                partida.idGanador = partida.idCreador;
+            }
+        }
+        await partida.save();
+        return partida;
+    }
+}
+
+function resolverRonda(eleccionCreador, eleccionRival) {
+    if (eleccionCreador === eleccionRival) {
+        return 'empate';
+    }
+    if (
+        (eleccionCreador === 'piedra' && eleccionRival === 'tijeras') ||
+        (eleccionCreador === 'papel' && eleccionRival === 'piedra') ||
+        (eleccionCreador === 'tijeras' && eleccionRival === 'papel')
+    ) {
+        return 'creador';
+    }
+    return 'rival';
 }
 
 export default new PartidaService();
