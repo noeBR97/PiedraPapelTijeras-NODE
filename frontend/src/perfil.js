@@ -8,6 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const formCrearPartida = document.getElementById('crear-partida-form');
     const selectTipo = document.getElementById('tipo-partida');
     const listaPartidas = document.getElementById('partidas-ul');
+    const usernameSpan = document.getElementById('username-display');
+    const userRaw = sessionStorage.getItem('user');
+
+    if (!userRaw) {
+        window.location.href = '/index.html';
+        return;
+    }
+
+    const user = JSON.parse(userRaw);
+    usernameSpan.textContent = user.nick;
 
     async function cargarPartidas() {
         try {
