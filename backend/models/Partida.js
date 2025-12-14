@@ -48,7 +48,25 @@ Partida.init(
             },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
-        }
+        },
+        eleccionCreador: {
+            type: DataTypes.ENUM('piedra', 'papel', 'tijeras'),
+            allowNull: true,
+        },
+        eleccionRival: {
+            type: DataTypes.ENUM('piedra', 'papel', 'tijeras'),
+            allowNull: true,
+        },
+        victoriasCreador: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
+        },
+        victoriasRival: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
+        },
     },
     {
         sequelize: db,
