@@ -40,12 +40,8 @@ export const unirseAPartida = async (req=request, res=response) => {
         const { idPartida } = req.params;
         const idUsuario = req.user.id;
 
-        const partidaAbierta = await PartidaService.usuariosEnPartida(idUsuario);
-        if(partidaAbierta){
-            return res.status(400).json({msg: 'Ya tienes una partida en curso o en espera'});
-        }
-
         const partida = await PartidaService.unirseAPartida(idPartida, idUsuario);
+
         res.status(200).json({
             msg: 'Te has unido a la partida exitosamente',
             partida
@@ -67,5 +63,18 @@ export const cancelarPartida = async (req=request, res=response) => {
         });
     } catch (error) {
         res.status(400).json({msg: 'Error al cancelar la partida', error: error.message});
+    }
+}
+
+export const obtenerPartida = async (req=request, res=response) => {
+    try {
+        const { idPartida } = req.params;
+        const partida = await PartidaService.obtenerPartida(idPartida);
+        if (!partida) {
+            return res.status(404).json({ msg: 'Partida no encontrada' });
+        }
+        res.status(200).json(partida);
+    } catch (error) {
+        res.status(500).json({ msg: 'Error al obtener la partida', error: error.message });
     }
 }

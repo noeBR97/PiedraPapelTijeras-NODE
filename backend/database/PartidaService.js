@@ -74,6 +74,10 @@ class PartidaService {
         await partida.save();
         return partida;
     }
+
+    async obtenerPartida(idPartida) {
+        return await Partida.findByPk(idPartida);
+    }
 }
 
 export default new PartidaService();
