@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const listaPartidas = document.getElementById('partidas-ul');
     const usernameSpan = document.getElementById('username-display');
     const userRaw = sessionStorage.getItem('user');
+    const modalEsperarJugador = document.getElementById('modal-esperar-jugador');
+    const btnAbandonar = document.getElementById('btn-abandonar');
 
     if (!userRaw) {
         window.location.href = '/index.html';
@@ -60,6 +62,29 @@ document.addEventListener('DOMContentLoaded', () => {
         modalCrearPartida.style.display = 'none';
     })
 
+    btnAbandonar.addEventListener('click', async () => {
+        try {
+            const idPartida = sessionStorage.getItem('partidaEnEspera');
+            if (!idPartida) {
+                alert('No estás en una partida en espera.');
+                return;
+            }
+
+            await apiRequest(`/partidas/${idPartida}/cancelar`, {
+                method: 'POST'
+            });
+
+            sessionStorage.removeItem('partidaEnEspera');
+            
+            modalEsperarJugador.style.display = 'none';
+
+            alert('Partida cancelada.');
+            cargarPartidas();
+        } catch (error) {
+            alert(error.message);
+        }
+    })
+
     formCrearPartida.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -76,11 +101,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ tipo })
             });
 
+            sessionStorage.setItem('partidaEnEspera', JSON.stringify(res.partida.id));
+
             modalCrearPartida.style.display = 'none';
 
             console.log('Partida creada.');
 
-            //TODO redireccion pantalla juego
+            if (tipo === 'humano') {
+                modalEsperarJugador.style.display = 'flex';
+            } else {
+                //TODO redireccion pantalla juego
+            }
 
             alert('Partida creada correctamente');
 
