@@ -67,7 +67,13 @@ export const login = async (req=request, res=response) => {
 
         return res.status(200).json({
             msg: "Login exitososo", 
-            token
+            token,
+            usuario: {
+                id: usuario.id,
+                nombre: usuario.nombre,
+                nick: usuario.nick,
+                email: usuario.email
+            }
         });
     } catch (error) {
         return res.status(500).json({msg: "Error en el servidor", error: error.message});
