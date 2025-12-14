@@ -152,3 +152,30 @@ input[type="text"], input[type="password"], input[type="email"], select {
   cursor: pointer;
   color: #fff;
 }
+
+.layout-principal {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* Perfil a la izquierda */
+.container-perfil {
+  flex: 1;
+  background-color: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+/* Partidas a la derecha */
+.container-partidas {
+  flex: 2;
+  background-color: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+li {
+  list-style-type: none;
+  padding: 0;
+}
