@@ -13,3 +13,5 @@ class UsuarioService {
         return await Usuario.findOne({ where: { nick } });
     }
 }
+
+export default new UsuarioService();

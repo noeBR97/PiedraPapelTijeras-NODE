@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import {router as userRoutes} from '../routes/auth.routes.js';
+import userRoutes from '../routes/auth.routes.js';
 import kleur from 'kleur';
 
 
