@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ tipo })
             });
 
-            sessionStorage.setItem('partidaEnEspera', JSON.stringify(res.partida.id));
+            sessionStorage.setItem('partidaEnEspera', res.partida.id);
 
             modalCrearPartida.style.display = 'none';
 
@@ -119,4 +119,32 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(error.message);
         }
     })
+
+    async function unirseAPartida(idPartida) {
+        try {
+            const res = await apiRequest(`/partidas/${idPartida}/unirse`, {
+                method: 'POST'
+            });
+            window.location.href = `/HTML/juego.html?id=${res.partida.id}`;
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
+    async function comprobarSiEmpiezaPartida() {
+        console.log('⏱️ polling activo');
+        const idPartida = sessionStorage.getItem('partidaEnEspera');
+        if (!idPartida) return;
+        try {
+            const partida = await apiRequest(`/partidas/${idPartida}`);
+            console.log('📦 partida recibida:', partida);
+            if (partida.estado === 'en_progreso') {
+                sessionStorage.removeItem('partidaEnEspera');
+                window.location.href = `/HTML/juego.html?id=${partida.id}`;
+            }
+        } catch (error) {
+            console.error('Error al comprobar el estado de la partida:', error);
+        }
+    }
+    setInterval(comprobarSiEmpiezaPartida, 3000);
 })
